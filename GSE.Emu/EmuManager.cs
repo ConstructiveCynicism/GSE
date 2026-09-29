@@ -593,6 +593,15 @@ public sealed class EmuManager : IDisposable
 		}
 	}
 
+	public bool? ToggleWirelessAdapter()
+	{
+		lock (_emuCoreLock)
+		{
+			CheckEmuThreadException();
+			return _emuCore.ToggleWirelessAdapter();
+		}
+	}
+
 	public void SetLowLatencyMode(bool lowLatencyMode)
 	{
 		lock (_emuCoreLock)

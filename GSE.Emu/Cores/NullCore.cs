@@ -44,6 +44,8 @@ internal sealed class NullCore : IEmuCore
 	{
 	}
 
+	public bool? ToggleWirelessAdapter() => null;
+
 	// no need to actually provide these, these will never be used for this core
 	public ReadOnlySpan<uint> VideoBuffer => [];
 	public int VideoWidth => 0;

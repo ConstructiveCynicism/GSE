@@ -277,6 +277,20 @@ GSE_EXPORT int64_t mesen_getrtctime(GSE_ctx* ctx)
 	return ctx->emu->GetSettings()->GetGbaConfig().GbaCustomDate;
 }
 
+// this only changes the requested adapter state in the settings
+// GbaSerial applies it at the start of the next frame, as changing it mid-frame isn't safe
+GSE_EXPORT bool mesen_togglewirelessadapter(GSE_ctx* ctx)
+{
+	auto& gbaConfig = ctx->emu->GetSettings()->GetGbaConfig();
+	gbaConfig.FakeAdapter = !gbaConfig.FakeAdapter;
+	return gbaConfig.FakeAdapter;
+}
+
+GSE_EXPORT bool mesen_getwirelessadapter(GSE_ctx* ctx)
+{
+	return ctx->emu->GetSettings()->GetGbaConfig().FakeAdapter;
+}
+
 GSE_EXPORT uint32_t mesen_getsavestatelength(GSE_ctx* ctx)
 {
 	Serializer s(SaveStateManager::FileFormatVersion, true, SerializeFormat::Binary);

@@ -130,6 +130,7 @@ internal sealed class HotkeyManager
 			new PressTriggerHotkeyState(inputManager, config.HotkeyBindings.VolumeDownButtonBindings, VolumeDown),
 			new PressTriggerHotkeyState(inputManager, config.HotkeyBindings.VolumeUp10ButtonBindings, VolumeUp10),
 			new PressTriggerHotkeyState(inputManager, config.HotkeyBindings.VolumeDown10ButtonBindings, VolumeDown10),
+			new PressTriggerHotkeyState(inputManager, config.HotkeyBindings.ToggleWirelessAdapterButtonBindings, ToggleWirelessAdapter),
 			new PressTriggerHotkeyState(inputManager, config.HotkeyBindings.SaveStateButtonBindings, stateManager.SaveStateCurSlot),
 			new PressTriggerHotkeyState(inputManager, config.HotkeyBindings.LoadStateButtonBindings, stateManager.LoadStateCurSlot),
 			new PressTriggerHotkeyState(inputManager, config.HotkeyBindings.PrevStateSetButtonBindings, stateManager.DecStateSet),
@@ -248,6 +249,16 @@ internal sealed class HotkeyManager
 		}
 
 		_osdManager.QueueMessage($"Volume set to {_config.Volume}%");
+	}
+
+	private void ToggleWirelessAdapter()
+	{
+		_osdManager.QueueMessage(_emuManager.ToggleWirelessAdapter() switch
+		{
+			true => "Wireless Adapter plugged in",
+			false => "Wireless Adapter unplugged",
+			null => "No Wireless Adapter available"
+		});
 	}
 
 	public void OnInputBindingsChange()

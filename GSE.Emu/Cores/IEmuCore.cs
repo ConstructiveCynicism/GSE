@@ -17,6 +17,8 @@ internal interface IEmuCore : IDisposable
 
 	void GetMemoryExport(ExportHelper.MemExport which, out nint ptr, out nuint len);
 	void SetColorCorrectionEnable(bool enable);
+	/// <returns>the new adapter state, or null if the core has no wireless adapter (i.e. non-GBA cores)</returns>
+	bool? ToggleWirelessAdapter();
 
 	ReadOnlySpan<uint> VideoBuffer { get; }
 	int VideoWidth { get; }
